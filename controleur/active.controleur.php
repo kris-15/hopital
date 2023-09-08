@@ -5,6 +5,11 @@
         $_SESSION['admin'] = $admin['username'];
         header('Location: index.admin.php');
     }
+    if(isset($_SESSION['activation'])){
+
+    }else{
+        header('location: connexion.controleur.php');
+    }
     if(isset($_POST['activation'])){
         extract($_POST);
         $active = $auth->activer_compte($_SESSION['activation'], $code);
