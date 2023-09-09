@@ -3,6 +3,27 @@
     ob_start();
 ?>
 <?= $salutation ?>
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-sm-3 bg-danger m-1 p-2">
+            <h1>Test du code</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. dolore nam delectus voluptatibus autem dolorum dignissimos eligendi libero rerum.</p>
+        </div>
+        <div class="col-sm-2 bg-secondary shadow m-1 p-2 rounded-3">
+            <h1>Test du code</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda nobis numquam sapiente possimus, quasi voluptatum consequatur beatae architecto vitae nesciunt corrupti modi consequuntur vel veniam? Voluptas odit repellendus eaque.</p>
+        </div>
+        <div class="col-sm-2 bg-warning m-1 p-2">
+            <h1>Test du code</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda nobis numquam sapiente possimus, quasi voluptatum consequatur beatae architecto vitae nesciunt corrupti modi consequuntur vel veniam? Voluptas odit repellendus eaque.</p>
+        </div>
+        <div class="col-sm-3 bg-primary m-1 p-2">
+            <h1>Test du code</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda nobis numquam sapiente possimus, quasi voluptatum consequatur beatae architecto vitae nesciunt corrupti modi consequuntur vel veniam? Voluptas odit repellendus eaque.</p>
+        </div>
+    </div>
+</div> -->
+<?php require_once '../vue/ajouter.vue.php' ?>
 <h2>Section title</h2>
 <div class="table-responsive small">
 <table class="table table-striped table-sm">

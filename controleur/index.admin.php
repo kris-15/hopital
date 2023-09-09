@@ -6,5 +6,10 @@
     }else{
         header('Location: connexion.controleur.php');
     }
+    if(isset($_POST['enregistrer'])){
+        echo'<pre>';
+        print_r($_POST);
+        echo '</pre>';
+    }
     require_once '../vue/index.admin.vue.php';
 ?>
