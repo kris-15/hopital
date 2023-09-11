@@ -26,12 +26,12 @@
             $erreur = "Echec d'enregistrement du patient";
         }
     }
-    //$patientes = $medecin->get_patientes();
+    $patientes = $medecin->get_patientes();
 
     //Partie recherche
-    // if(isset($_POST['recherche'])){
-    //     extract($_POST);
-    //     $patientes = $medecin->get_patientes_by_nom($nom);
-    // }
+    if(isset($_POST['recherche'])){
+        extract($_POST);
+        $patientes = $medecin->get_patientes_by_nom($nom);
+    }
     require_once '../vue/index.admin.vue.php';
 ?>

@@ -6,7 +6,8 @@
 <?= $salutation ?>
 
 <?php require_once '../vue/ajouter.vue.php' ?>
-
+<hr>
+<?php require_once '../vue/recherche.vue.php' ?>
 <hr>
 <h2 class="text-center mb-3">Les patientes enregistrées</h2>
 <div class="table-responsive small">

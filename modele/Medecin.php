@@ -48,14 +48,14 @@ class Medecin extends Model{
      * Permet de récupérer tous les patientes enregistrées
      * @return array $lesPatientes La liste des patientes
      */
-    // public function get_patientes(){
-    //     $lesPatientes = $this->prepare_sql("SELECT * FROM patientes", [], fetch: true, fetchMode: PDO::FETCH_OBJ);
-    //     return $lesPatientes;
-    // }
+    public function get_patientes(){
+        $lesPatientes = $this->prepare_sql("SELECT * FROM patientes", [], fetch: true, fetchMode: PDO::FETCH_OBJ);
+        return $lesPatientes;
+    }
 
-    // public function get_patientes_by_nom($nomPatiente){
-    //     $lesPatientes = $this->prepare_sql("SELECT * FROM patientes WHERE nom LIKE ?", ["%$nomPatiente%"], fetch: true, fetchMode: PDO::FETCH_OBJ);
-    //     return $lesPatientes;
-    // }
+    public function get_patientes_by_nom($nomPatiente){
+        $lesPatientes = $this->prepare_sql("SELECT * FROM patientes WHERE nom LIKE ?", ["%$nomPatiente%"], fetch: true, fetchMode: PDO::FETCH_OBJ);
+        return $lesPatientes;
+    }
 
 }
