@@ -17,18 +17,22 @@ class Model{
      * @param bool $fetchOne si on va chercher qu'un seul élément
      * @return bool||array $donnees
      */
-    public function prepare_sql($sql, Array $valeurs, $fetch = false, $fetchColumn = false, $fetchOne = false){
+    public function prepare_sql(
+        $sql, Array $valeurs, $fetch = false, $fetchColumn = false, 
+        $fetchOne = false, $fetchMode = PDO::FETCH_ASSOC, 
+    )
+    {
         $requete = $this->get_pdo()->prepare($sql);
         $requete->execute($valeurs);
         $donnees = true;
         if($fetch){
-            $donnees = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $donnees = $requete->fetchAll($fetchMode);
         }
         if($fetchColumn){
             $donnees = $requete->fetchColumn();
         }
         if($fetchOne){
-            $donnees = $requete->fetch();
+            $donnees = $requete->fetch($fetchMode);
         }
         return $donnees;
     }

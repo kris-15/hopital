@@ -8,7 +8,7 @@ class Authentification extends Model{
      * @return bool $insertion Selon que l'enregitrement a été fait ou non 
      */
     public function inscription_admin(array $infoAdmin){
-        $sql = "INSERT INTO admins (nom, username, mot_de_passe, telephone, code) VALUE (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO medecins (nom, username, mot_de_passe, telephone, code) VALUE (?, ?, ?, ?, ?)";
         $insertion = $this->prepare_sql($sql, $infoAdmin);
         return $insertion;
     }
@@ -20,7 +20,7 @@ class Authentification extends Model{
      * @return array||bool selon que les information sont correctes ou non 
      */
     public function connexion_admin($username, $password){
-        $sql = "SELECT * FROM admins WHERE username = ?";
+        $sql = "SELECT * FROM medecins WHERE username = ?";
         $admin = $this->prepare_sql($sql, [$username], fetchOne: true);
         if($admin){
             $test = password_verify($password, $admin["mot_de_passe"]);
@@ -35,7 +35,7 @@ class Authentification extends Model{
      * @return int $exist Le nombre de fois utilisé
      */
     public function username_exist($username){
-        $sql = "SELECT count(id) FROM admins WHERE username = ?";
+        $sql = "SELECT count(id) FROM medecins WHERE username = ?";
         $exist = $this->prepare_sql($sql, [$username], fetchColumn: true);
         return $exist;
 
@@ -46,10 +46,10 @@ class Authentification extends Model{
      * @param string $code Le code d'activation reçu après enregistrement
      */
     public function activer_compte($username, $code){
-        $sql = "SELECT * FROM admins WHERE username = ? AND code = ?";
+        $sql = "SELECT * FROM medecins WHERE username = ? AND code = ?";
         $admin = $this->prepare_sql($sql, [$username, $code], fetchOne: true);
         if($admin){
-            $sql = "UPDATE admins SET statut_compte = ? WHERE username = ? AND code = ?";
+            $sql = "UPDATE medecins SET statut_compte = ? WHERE username = ? AND code = ?";
             $modification = $this->prepare_sql($sql, ["ACTIVE", $admin['username'], $admin['code']]);
             return $modification;
         }
@@ -62,7 +62,7 @@ class Authentification extends Model{
      * @return array||bool $check Selon que l'admin est trouvé ou non.
      */
     public function check_admin_by_username($username){
-        $sql = "SELECT * FROM admins WHERE username = ?";
+        $sql = "SELECT * FROM medecins WHERE username = ?";
         $check = $this->prepare_sql($sql, [$username], fetchOne: true);
         return $check;
     }
