@@ -8,6 +8,8 @@ class Medecin extends Model{
     public $code;
     public $dateNais;
     public $epoux;
+
+    
     /**
      * Permet d'ajouter une patiente
      * @param array $infoPatiente Les informations de la nouvelle patiente
@@ -18,20 +20,17 @@ class Medecin extends Model{
         $ajoutPatient = $this->prepare_sql($sql, $infoPatiente);
         $patiente = $this->patient_enregistre($infoPatiente);
         array_push($infoAdressePatiente, $patiente->id);
-        $ajoutAdresse = $this->ajouter_adresse($infoAdressePatiente);
-        return $ajoutAdresse;
+        return $this->ajouter_adresse($infoAdressePatiente);
     }
 
     private function patient_enregistre(array $infoPatiente){
         $sql = "SELECT id FROM patientes WHERE nom = ? AND prenom = ? AND telephone = ? AND code = ? AND date_naissance = ? AND epoux = ?";
-        $patiente = $this->prepare_sql($sql, $infoPatiente, fetchOne: true, fetchMode: PDO::FETCH_OBJ);
-        return $patiente;
+        return $this->prepare_sql($sql, $infoPatiente, fetchOne: true, fetchMode: PDO::FETCH_OBJ);
     }
 
     private function ajouter_adresse(array $infoAdresse){
         $sql = "INSERT INTO adresses VALUE (null,?,?,?,?,?)";
-        $ajout = $this->prepare_sql($sql, $infoAdresse);
-        return $ajout;
+        return $this->prepare_sql($sql, $infoAdresse);
     }
 
     /**
@@ -40,8 +39,7 @@ class Medecin extends Model{
      * @return int $reponse Le nombre des fois que le code a été utilisé
      */
     public function verifier_code($code){
-        $reponse = $this->prepare_sql("SELECT count(id) FROM patientes WHERE code = ?", [$code], fetchColumn:true);
-        return $reponse;
+        return $this->prepare_sql("SELECT count(id) FROM patientes WHERE code = ?", [$code], fetchColumn:true);
     }
 
     /**
@@ -49,13 +47,23 @@ class Medecin extends Model{
      * @return array $lesPatientes La liste des patientes
      */
     public function get_patientes(){
-        $lesPatientes = $this->prepare_sql("SELECT * FROM patientes", [], fetch: true, fetchMode: PDO::FETCH_OBJ);
-        return $lesPatientes;
+        return $this->prepare_sql("SELECT * FROM patientes", [], fetch: true, fetchMode: PDO::FETCH_OBJ); 
     }
 
     public function get_patientes_by_nom($nomPatiente){
-        $lesPatientes = $this->prepare_sql("SELECT * FROM patientes WHERE nom LIKE ?", ["%$nomPatiente%"], fetch: true, fetchMode: PDO::FETCH_OBJ);
-        return $lesPatientes;
+        return $this->prepare_sql("SELECT * FROM patientes WHERE nom LIKE ?", ["%$nomPatiente%"], fetch: true, fetchMode: PDO::FETCH_OBJ);
+    }
+    /**
+     * Recupère les informations d'une patiente au moyen de son id
+     * @param int $id L'identifiant de la patient
+     * @return array
+     */
+    public function find_patiente($id){
+        return $this->prepare_sql("SELECT * FROM patientes WHERE id = ?", [$id], fetchOne:true, fetchMode:PDO::FETCH_OBJ);
+    }
+
+    public function enregistrer_enfant(array $infoEnfant){
+        return $this->prepare_sql("INSERT INTO enfants VALUES (null,?,?,?,?,?,?,?)", $infoEnfant);
     }
 
 }

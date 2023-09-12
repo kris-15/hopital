@@ -8,13 +8,17 @@ class BootstrapComponent{
      * @param string $label Le label visible dans le champ.
      * @return string $heredoc La structure html formatée
      */
-    public static function form_input($type, $name, $label, $min = 0, $max =10000000){
+    public static function form_input($type, $name, $label, $min = 0, $max =10000000, $required = true){
+        $requiredText = "required";
+        if(!$required){
+            $requiredText = "";
+        }
         $value = $_POST[''.$name]??'';
         $minValeur = ($type=='number')?$min:'';
         $maxValeur = ($type=='number' || $type=='date')?$max:'';
         return <<<HTML
             <div class="form-floating my-2">
-                <input type="$type" class="form-control" id="floatingInput" name="$name" placeholder="$label" value="$value" min="$minValeur" max="$maxValeur" required>
+                <input type="$type" class="form-control" id="floatingInput" name="$name" placeholder="$label" value="$value" min="$minValeur" max="$maxValeur" $requiredText>
                 <label for="floatingInput">$label</label>
             </div>
 HTML;

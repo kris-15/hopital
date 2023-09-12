@@ -36,4 +36,13 @@ class Model{
         }
         return $donnees;
     }
+    /**
+     * Retourne l'id d'une entrée dans une entité grace à un champ
+     * @param string $champ Le champ de la table
+     * @param string $table La table ciblée
+     * @param string $valeur La valeur indexé
+     */
+    public function get_id_by($champ, $table, $valeur){
+        return $this->prepare_sql("SELECT id FROM $table WHERE $champ= ?", [$valeur], fetchColumn:true);
+    }
 }
