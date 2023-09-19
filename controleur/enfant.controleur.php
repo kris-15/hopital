@@ -14,6 +14,22 @@ if(isset($_GET['maman'])){
 
 if(isset($_POST['enregistrer'])){
     extract($_POST);
-    $enregistrement = $medecin->enregistrer_enfant([$nom,$sexe,$poids,$dateNais,$patienteId,$medecinId,$etat]);
+    $enfantExist = $medecin->check_enfants(
+        [$nom,$sexe,$poids,$dateNais,$taille,$apgar,$pc,$observation_enfant,$patienteId,$medecinId,$etat]
+    );
+    if($enfantExist == 0){
+        $enregistrerEnfant = $medecin->enregistrer_enfant(
+            [$nom,$sexe,$poids,$dateNais,$taille,$apgar,$pc,$observation_enfant,$patienteId,$medecinId,$etat]
+        );
+        var_dump($enregistrerEnfant);
+        $enregistrerAccouchement = $medecin->enregistrer_accouchement(
+            [$patienteId,$medecinId,$observation_maman,$dateNais,$voie,$type,$vih, $enregistrerEnfant['id']]
+        );
+        $satisfait = "Enregistrement avec succès";
+        unset($_POST);
+    }else{
+        $erreur = "Cet enfant existe déjà";
+    }
+    
 }
 require "../vue/ajouter.enfant.vue.php";

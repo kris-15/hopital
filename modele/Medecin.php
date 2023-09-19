@@ -62,8 +62,70 @@ class Medecin extends Model{
         return $this->prepare_sql("SELECT * FROM patientes WHERE id = ?", [$id], fetchOne:true, fetchMode:PDO::FETCH_OBJ);
     }
 
+    /**
+     * Permet d'enregistrer un nouvel enfant
+     * @param array $infoEnfant Les données de l'enfant
+     * @return bool
+     */
     public function enregistrer_enfant(array $infoEnfant){
-        return $this->prepare_sql("INSERT INTO enfants VALUES (null,?,?,?,?,?,?,?)", $infoEnfant);
+        $enregistrement = $this->prepare_sql("INSERT INTO enfants VALUES (null,?,?,?,?,?,?,?,?,?,?,?)", $infoEnfant);
+        return $this->id_enfant($infoEnfant);
     }
+
+    public function check_enfants(array $infoEnfant){
+        return $this->prepare_sql(
+            "SELECT count(id) FROM enfants WHERE nom=? AND sexe=? AND poids=? AND 
+            date_naissance=? AND taille=? AND apgar=? AND pc=? AND observation=? AND 
+            parent_id=? AND medecin_id=? AND etat=?",
+            $infoEnfant, fetchColumn:true
+        );
+        return $this->id_enfant($infoEnfant);
+        
+    }
+    public function id_enfant(array $infoEnfant){
+        return $this->prepare_sql(
+            "SELECT id FROM enfants WHERE nom=? AND sexe=? AND poids=? AND 
+            date_naissance=? AND taille=? AND apgar=? AND pc=? AND observation=? AND 
+            parent_id=? AND medecin_id=? AND etat=?",
+            $infoEnfant, fetchOne:true
+        );
+    }
+
+    
+    /**
+     * Permet d'enregistrer un nouvel enfant
+     * @param array $infoAccouchement Les données de l'enfant
+     * @return bool
+     */
+    public function enregistrer_accouchement(array $infoAccouchement){
+        return $this->prepare_sql("INSERT INTO accouchements VALUES (null,?,?,?,?,?,?,?,?)", $infoAccouchement);
+    }
+
+    //Consultation
+
+    // /**
+    //  * Permet d'enregistrer une nouvelle consultation
+    //  * @param array $infoConsultation Les information relatives à la consultation
+    //  * @return bool
+    //  */
+    // public function enregistrer_consultation(array $infoConsultation){
+    //     return $this->prepare_sql("INSERT INTO consultations VALUE (null,?,?,?,?,?,?,NOW())", $infoConsultation);
+    // }
+
+    // /**
+    //  * Permet de récupérer les consultations précédentes de la patiente
+    //  * @param int $idPatiente L'identifiant de la patiente
+    //  * @return array $consultation
+    //  */
+    // public function consultation_patiente($idPatiente){
+    //     return $this->prepare_sql(
+    //         "SELECT *, consultations.id as id_consultation, medecins.id as id_medecin, medecins.nom as nom_medecin, 
+    //         date_format(date_consultation, '%d/%m/%Y à %H:%i') as date_formatee 
+    //         FROM consultations 
+    //         INNER JOIN medecins ON medecins.id = consultations.medecin_id
+    //         WHERE patient_id = ? ORDER BY consultations.id DESC", 
+    //         [$idPatiente], fetch:true, fetchMode:PDO::FETCH_OBJ
+    //     );
+    // }
 
 }

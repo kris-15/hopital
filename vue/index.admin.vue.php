@@ -4,7 +4,6 @@
     $cpt = 1;
 ?>
 <?= $salutation ?>
-
 <?php require_once '../vue/ajouter.vue.php' ?>
 <hr>
 <?php require_once '../vue/recherche.vue.php' ?>
@@ -31,7 +30,7 @@
                     <td><?= $patiente->telephone ?></td>
                     <td><?= strtoupper($patiente->epoux)?></td>
                     <td class="d-flex justify-content-center">
-                        <a href="<?= ($patiente->id)?>" class="btn btn-sm btn-outline-success mx-1">Consulter</a>
+                        <a href="../controleur/consultation.controleur.php?patiente=<?= ($patiente->id)?>" class="btn btn-sm btn-outline-success mx-1">Consulter</a>
                         <a href="../controleur/enfant.controleur.php?maman=<?= $patiente->id ?>" class="btn btn-sm btn-outline-primary">Acchoucher</a>
                     </td>
                 </tr>
