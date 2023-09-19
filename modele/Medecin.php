@@ -103,29 +103,29 @@ class Medecin extends Model{
 
     //Consultation
 
-    // /**
-    //  * Permet d'enregistrer une nouvelle consultation
-    //  * @param array $infoConsultation Les information relatives à la consultation
-    //  * @return bool
-    //  */
-    // public function enregistrer_consultation(array $infoConsultation){
-    //     return $this->prepare_sql("INSERT INTO consultations VALUE (null,?,?,?,?,?,?,NOW())", $infoConsultation);
-    // }
+    /**
+     * Permet d'enregistrer une nouvelle consultation
+     * @param array $infoConsultation Les information relatives à la consultation
+     * @return bool
+     */
+    public function enregistrer_consultation(array $infoConsultation){
+        return $this->prepare_sql("INSERT INTO consultations VALUE (null,?,?,?,?,?,?,NOW())", $infoConsultation);
+    }
 
-    // /**
-    //  * Permet de récupérer les consultations précédentes de la patiente
-    //  * @param int $idPatiente L'identifiant de la patiente
-    //  * @return array $consultation
-    //  */
-    // public function consultation_patiente($idPatiente){
-    //     return $this->prepare_sql(
-    //         "SELECT *, consultations.id as id_consultation, medecins.id as id_medecin, medecins.nom as nom_medecin, 
-    //         date_format(date_consultation, '%d/%m/%Y à %H:%i') as date_formatee 
-    //         FROM consultations 
-    //         INNER JOIN medecins ON medecins.id = consultations.medecin_id
-    //         WHERE patient_id = ? ORDER BY consultations.id DESC", 
-    //         [$idPatiente], fetch:true, fetchMode:PDO::FETCH_OBJ
-    //     );
-    // }
+    /**
+     * Permet de récupérer les consultations précédentes de la patiente
+     * @param int $idPatiente L'identifiant de la patiente
+     * @return array $consultation
+     */
+    public function consultation_patiente($idPatiente){
+        return $this->prepare_sql(
+            "SELECT *, consultations.id as id_consultation, medecins.id as id_medecin, medecins.nom as nom_medecin, 
+            date_format(date_consultation, '%d/%m/%Y à %H:%i') as date_formatee 
+            FROM consultations 
+            INNER JOIN medecins ON medecins.id = consultations.medecin_id
+            WHERE patient_id = ? ORDER BY consultations.id DESC", 
+            [$idPatiente], fetch:true, fetchMode:PDO::FETCH_OBJ
+        );
+    }
 
 }
