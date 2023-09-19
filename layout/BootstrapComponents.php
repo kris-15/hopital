@@ -23,6 +23,25 @@ class BootstrapComponent{
             </div>
 HTML;
     }
+    /**
+     * Permet de créer un champ textarea du formulaire  bootstrap
+     * @param string $name Le nom de la variable que la logique utilisera
+     * @param string $label Le label visible dans le champ.
+     * @return string $heredoc La structure html formatée
+     */
+    public static function form_textarea($name, $label, $required = true){
+        $requiredText = "required";
+        if(!$required){
+            $requiredText = "";
+        }
+        $value = $_POST[''.$name]??'';
+        return <<<HTML
+            <div class="form-floating my-2">
+                <textarea class="form-control" id="floatingTextarea" placeholder="$label" name="$name" rows="15" $requiredText>$value</textarea>                
+                <label for="floatingInput">$label</label>
+            </div>
+HTML;
+    }
 
     /**
      * Permet de créer un champ select du formulaire  bootstrap
