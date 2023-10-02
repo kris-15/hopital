@@ -1,8 +1,8 @@
 <?php 
     require_once 'auth.requirement.php';
-    $admin = $auth->check_admin_by_username($_SESSION['activation']);
-    if($admin['statut_compte'] == "ACTIVE"){
-        $_SESSION['admin'] = $admin['username'];
+    $medecin = $auth->check_medecin_by_username($_SESSION['activation']);
+    if($medecin['statut_compte'] == "ACTIVE"){
+        $_SESSION['medecin'] = $medecin['username'];
         header('Location: index.admin.php');
     }
     if(isset($_SESSION['activation'])){

@@ -7,7 +7,7 @@ class Authentification extends Model{
      * @param array $infoAdmin les informations relatives  l'administrateur
      * @return bool $insertion Selon que l'enregitrement a été fait ou non 
      */
-    public function inscription_admin(array $infoAdmin){
+    public function inscription_medecin(array $infoAdmin){
         $sql = "INSERT INTO medecins (nom, username, mot_de_passe, telephone, code) VALUE (?, ?, ?, ?, ?)";
         $insertion = $this->prepare_sql($sql, $infoAdmin);
         return $insertion;
@@ -19,11 +19,15 @@ class Authentification extends Model{
      * @param string $password Le mot de passe de l'utilisateur
      * @return array||bool selon que les information sont correctes ou non 
      */
-    public function connexion_admin($username, $password){
+    public function connexion_medecin($username, $password){
         $sql = "SELECT * FROM medecins WHERE username = ?";
         $admin = $this->prepare_sql($sql, [$username], fetchOne: true);
         if($admin){
             $test = password_verify($password, $admin["mot_de_passe"]);
+            if($test){
+                return $admin;
+            }
+            return false;
         }
         
         return $admin ?? false;
@@ -61,7 +65,7 @@ class Authentification extends Model{
      * @param string $username Le username de l'admin cherché
      * @return array||bool $check Selon que l'admin est trouvé ou non.
      */
-    public function check_admin_by_username($username){
+    public function check_medecin_by_username($username){
         $sql = "SELECT * FROM medecins WHERE username = ?";
         $check = $this->prepare_sql($sql, [$username], fetchOne: true);
         return $check;

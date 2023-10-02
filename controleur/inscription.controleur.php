@@ -13,7 +13,7 @@
             $tel .= $telephone;
             $username_exist = $auth->username_exist($username);
             if($username_exist == 0){
-                $insertion = $auth->inscription_admin([$nom, $username, password_hash($motDePasse, PASSWORD_DEFAULT), $tel, $code]);
+                $insertion = $auth->inscription_medecin([$nom, $username, password_hash($motDePasse, PASSWORD_DEFAULT), $tel, $code]);
                 try{
                     $message = "Votre code d'activation est : $code\n 
                         Rendez-vous sur http://localhost/hopital/controleur/active.controleur.php 

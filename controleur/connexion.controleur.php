@@ -2,18 +2,18 @@
     require_once 'auth.requirement.php';
     if(isset($_POST['connexion'])){
         extract($_POST);
-        $admin = $auth->connexion_admin($username, $motDePasse);
-        if($admin){
-            switch($admin['statut_compte']){
+        $medecin = $auth->connexion_medecin($username, $motDePasse);
+        if($medecin){
+            switch($medecin['statut_compte']){
                 case "EN ATTENTE":
-                    $_SESSION['activation'] = $admin['username'];
+                    $_SESSION['activation'] = $medecin['username'];
                     header('Location: active.controleur.php');
                     break;
                 case "DESACTIVE":
                     $erreur = "Compte supprimé ou bloqué";
                     break;
                 case "ACTIVE":
-                    $_SESSION['admin'] = $admin['username'];
+                    $_SESSION['medecin'] = $medecin['username'];
                     header('Location: index.admin.php');
                     break;
             }
