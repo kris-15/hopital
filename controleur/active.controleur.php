@@ -14,7 +14,7 @@
         extract($_POST);
         $active = $auth->activer_compte($_SESSION['activation'], $code);
         if($active){
-            $_SESSION['admin'] = $admin['username'];
+            $_SESSION['admin'] = $medecin['username'];
             header('Location: index.admin.php');
         }else{
             $erreur = "Code d'activation invalide";
