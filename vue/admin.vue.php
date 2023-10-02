@@ -4,7 +4,12 @@
     ob_start();
 ?>
 
-<div class="container" onload="print()">
+<div class="container">
+    <?php 
+        if(isset($detailMedecin)){
+            require_once 'admin_liste_medecin.php';
+        }else{ 
+    ?>
     <div class="d-flex justify-content-end">
         <a href="" class="btn btn-sm btn-primary">Imprimer les détails</a>
     </div>
@@ -13,7 +18,7 @@
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
             <h2 class="fs-4">Médecins (<?= count($medecins) ?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-sm btn-primary" title="button">Détails</a>
+                <a href="?detail=medecin" class="btn btn-sm btn-primary" title="button">Détails</a>
             </div>
             </div>
         </div>
@@ -60,7 +65,8 @@
             
             </div>
         </div>
-    </div><br><br><br><br><br><br>
+    </div><br><br><br><br><br><br><br>
+    <?php } ?>
 </div>
 <?php
     $contenu = ob_get_clean();
