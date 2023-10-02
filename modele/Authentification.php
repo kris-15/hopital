@@ -1,5 +1,6 @@
 <?php
 require '../modele/Modele.php';
+require '../modele/Admin.php';
 class Authentification extends Model{
 
     /**
@@ -69,6 +70,11 @@ class Authentification extends Model{
         $sql = "SELECT * FROM medecins WHERE username = ?";
         $check = $this->prepare_sql($sql, [$username], fetchOne: true);
         return $check;
+    }
+
+    public function connexion_admin($login,$password){
+        $admin = new Admin($login,$password);
+        return $admin->connexion();
     }
 
 }
