@@ -3,9 +3,8 @@
     ob_start();
     $cpt = 1;
 ?>
-<?= $salutation ?>
-<?php require_once '../vue/ajouter.vue.php' ?>
-<hr>
+<!-- <?php require_once '../vue/ajouter.vue.php' ?> -->
+
 <?php require_once '../vue/recherche.vue.php' ?>
 <hr>
 <h2 class="text-center mb-3">Les patientes enregistrées</h2>

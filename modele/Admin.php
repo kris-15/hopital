@@ -41,7 +41,42 @@ class Admin extends Model{
         return $this->prepare_sql("SELECT * FROM $table WHERE id=?", [$id], fetchOne: true, fetchMode: PDO::FETCH_OBJ);
     }
 
+    /**
+     * Permet l'administrateur soit d'activer soit de desactiver un compte médecin;
+     */
     public function modifier_statut_compte_medecin($statut, $id){
         return $this->prepare_sql("UPDATE medecins SET statut_compte=? WHERE id=?", [$statut, $id]);
+    }
+
+    /**
+     * Permet à l'admin d'ajouter un receptionniste
+     * @param string $nom Le nom de la personne
+     * @param string $prenom Le prenom de la personne
+     * @param string $telephone Le numéro de téléphone de la personne
+     * @param string $code Le code généré de la personne
+     * @return bool
+     */
+    public function ajouter_receptionniste($nom,$prenom,$telephone,$code){
+        return $this->prepare_sql("INSERT INTO receptionnistes VALUE(null,?,?,?,?)", [$nom,$prenom,$telephone,$code]);
+    }
+
+    /**
+     * Permet à l'admin de modifier les info d'un receptionniste à l'inception du code
+     * @param int $idRec Id du receptionniste
+     * @param string $nom Le nom du receptionniste 
+     * @param string $prenom Le prenom du receptionniste 
+     * @param string $telephone Le numéro de téléphone du receptionniste 
+     */
+    public function modifier_info_receptionniste($idRec, $nom,$prenom,$telephone){
+        return $this->prepare_sql("UPDATE receptionnistes SET nom=?, prenom=?, telephone=? WHERE id=?", [$nom,$prenom,$telephone, $idRec]);
+    }
+    /**
+     * Permet à l'admin de supprimer une ligne dans une table
+     * @param string $table Le nom de la table
+     * @param int $id Id de la ligne
+     * @return bool
+     */
+    public function supprimer_par_id($table,$id){
+        return $this->prepare_sql("DELETE FROM $table WHERE id=?",[$id]);
     }
 }

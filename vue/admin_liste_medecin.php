@@ -4,7 +4,7 @@
 ?>
 <div class="container">
     <div class=" d-flex justify-content-end my-3">
-        <div class=""><a href="../controleur/admin.php" class="btn btn-primary btn-sm mt-2" title="Enregistrer">Retournez à l'accueil</a></div>
+        <div class=""><a href="../controleur/admin.php" class="btn btn-primary btn-sm mt-2" title="Retour">Retournez à l'accueil</a></div>
     </div>
     <?php require 'recherche.vue.php' ?>
     <?php if(isset($erreur)): ?>

@@ -1,5 +1,7 @@
 <?php 
-    $lead = "Admin - Dashboard";
+    $lead = "Admin - ";
+    if(isset($rec))$lead .= "Info Réceptionniste";
+    if(isset($ajouter))$lead = " Admin -Ajouter Réceptionniste";
     $titre = "Admin - Dashboard";
     ob_start();
 ?>
@@ -8,6 +10,8 @@
     <?php 
         if(isset($detailMedecin)){
             require_once 'admin_liste_medecin.php';
+        }elseif(isset($rec)){
+            require_once 'admin_ajoute_rec.vue.php';
         }else{ 
     ?>
     <div class="d-flex justify-content-end">
@@ -35,7 +39,8 @@
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
             <h2 class="fs-4">Receptionnistes (<?= count($receptionnistes) ?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-sm btn-primary" type="button">Détails</a>
+                <a href="?detail=receptionniste" class="btn btn-sm btn-primary me-2" title="Voir +">Détails</a>
+                <a href="?detail=receptionniste&action=ajouter" class="btn btn-sm btn-primary" title="Créer un nouveau">Créer</a>
             </div>
             </div>
         </div>
