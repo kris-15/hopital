@@ -7,6 +7,12 @@
         <div class=""><a href="../controleur/admin.php" class="btn btn-primary btn-sm mt-2" title="Enregistrer">Retournez à l'accueil</a></div>
     </div>
     <?php require 'recherche.vue.php' ?>
+    <?php if(isset($erreur)): ?>
+        <div class="alert alert-danger"><?= $erreur ?></div>
+    <?php endif ?>
+    <?php if(isset($okay)): ?>
+        <div class="alert alert-success"><?= $okay ?></div>
+    <?php endif ?>
     <div class="table-responsive small">
         <table class="table table-striped table-sm">
             <thead>
@@ -32,9 +38,9 @@
                         <td><?= $medecin->telephone ?></td>
                         <td class="d-flex justify-content-center">
                             <?php if($medecin->statut_compte == "ACTIVE"): ?>
-                                <a href="../controleur/admin.php?block=<?= ($medecin->id)?>" class="btn btn-sm btn-danger mx-1">DESACTIVE COMPTE</a>
-                            <?php elseif($medecin->statut_compte == "EN ATTENTE"): ?>
-                                <a href="../controleur/admin.php?deblock=<?= $medecin->id ?>" class="btn btn-sm btn-success">ACTIVE COMPTE</a>
+                                <a href="../controleur/admin.php?detail=medecin&block=<?= ($medecin->id)?>" class="btn btn-sm btn-danger mx-1">DESACTIVE COMPTE</a>
+                            <?php elseif($medecin->statut_compte == "DESACTIVE"): ?>
+                                <a href="../controleur/admin.php?detail=medecin&deblock=<?= $medecin->id ?>" class="btn btn-sm btn-success">ACTIVE COMPTE</a>
                             <?php else:?>
                                 <span class="badge bg-warning">Compte en attente d'activation</span>
                             <?php endif ?>

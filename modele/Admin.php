@@ -31,4 +31,17 @@ class Admin extends Model{
     public function recherche_info($table, $champ, $valeur){
         return $this->prepare_sql("SELECT * FROM $table WHERE $champ LIKE ?", ["%$valeur%"], fetch: true, fetchMode: PDO::FETCH_OBJ);
     }
+
+    /**
+     * Permet à l'admin de récupérer les informations dans une table à partir de l'id
+     * @param string $table Le nom de la table
+     * @param int $id Id ciblé
+     */
+    public function recuperer_par_id($table,$id){
+        return $this->prepare_sql("SELECT * FROM $table WHERE id=?", [$id], fetchOne: true, fetchMode: PDO::FETCH_OBJ);
+    }
+
+    public function modifier_statut_compte_medecin($statut, $id){
+        return $this->prepare_sql("UPDATE medecins SET statut_compte=? WHERE id=?", [$statut, $id]);
+    }
 }
