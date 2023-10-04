@@ -231,42 +231,84 @@
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
           <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-                <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Dashboard
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark"/></svg>
-                Patientes
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#cart"/></svg>
-                Nouveaux-né
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#people"/></svg>
-                Médecins
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#graph-up"/></svg>
-                Statistique
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#puzzle"/></svg>
-                Consultations
-              </a>
-            </li>
+            <?php if(isset($_SESSION['receptionniste'])): ?>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="index.receptionniste.php">
+                  <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="index.receptionniste.php?ajouter=oui">
+                  <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                  Patientes
+                </a>
+              </li>
+            <?php endif ?>
+            <?php if(isset($_SESSION['medecin'])): ?>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="index.admin.php">
+                  <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="index.admin.php">
+                  <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                  Patientes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="index.admin.php?detail=consultation">
+                  <svg class="bi"><use xlink:href="#puzzle"/></svg>
+                  Consultations
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="index.admin.php?detail=enfants">
+                  <svg class="bi"><use xlink:href="#people"/></svg>
+                  Nouveaux-né
+                </a>
+              </li>
+            <?php endif ?>
+            <?php if(isset($_SESSION['admin'])): ?>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="admin.php">
+                  <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="admin.php?detail=patiente">
+                  <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                  Patientes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="admin.php?detail=medecin">
+                  <svg class="bi"><use xlink:href="#people"/></svg>
+                  Médecins
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="admin.php?detail=receptionniste">
+                  <svg class="bi"><use xlink:href="#people"/></svg>
+                  Receptionniste
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="admin.php?detail=accouchement">
+                  <svg class="bi"><use xlink:href="#cart"/></svg>
+                  Nouveaux-né
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="admin.php?detail=consultation">
+                  <svg class="bi"><use xlink:href="#graph-up"/></svg>
+                  Consultation
+                </a>
+              </li>
+            <?php endif ?>
           </ul>
 
 
@@ -274,15 +316,9 @@
 
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
-                Settings
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="../controleur/deconnexion.php">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
+                Se deconnecter
               </a>
             </li>
           </ul>
