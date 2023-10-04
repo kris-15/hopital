@@ -15,10 +15,7 @@
             if($username_exist == 0){
                 $insertion = $auth->inscription_medecin([$nom, $username, password_hash($motDePasse, PASSWORD_DEFAULT), $tel, $code]);
                 try{
-                    $message = "Votre code d'activation est : $code\n 
-                        Rendez-vous sur http://localhost/hopital/controleur/active.controleur.php 
-                        pour l'activation du compte"
-                    ;
+                    $message = "Votre code d'activation est : $code\n Rendez-vous sur http://192.168.229.101/hopital/controleur/active.controleur.php pour l'activation du compte";
                     send_sms($tel, $message);
                 }catch(Exception $e){
                     echo 'Probleme de connexion';

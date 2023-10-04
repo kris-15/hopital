@@ -4,6 +4,7 @@
         extract($_POST);
         $medecin = $auth->connexion_medecin($username, $motDePasse);
         $admin = $auth->connexion_admin($username, $motDePasse);
+        $receptionniste = $auth->connexion_receptionniste($username, $motDePasse);
         if($medecin){
             switch($medecin['statut_compte']){
                 case "EN ATTENTE":
@@ -19,8 +20,11 @@
                     break;
             }
         }elseif($admin){
-            $_SESSION['admin'] = $admin->login;
-            header('Location: index.admin.php');
+            $_SESSION['admin'] = $admin->id;
+            header('Location: admin.php');
+        }elseif($receptionniste){
+            $_SESSION['receptionniste'] = $receptionniste->id;
+            header('Location: index.receptionniste.php');
         }
         else{
             $erreur = "Login ou mot de passe incorrect";

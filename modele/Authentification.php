@@ -76,5 +76,9 @@ class Authentification extends Model{
         $admin = new Admin($login,$password);
         return $admin->connexion();
     }
+    public function connexion_receptionniste($telephone,$code){
+        $receptionniste = new Receptionniste();
+        return $receptionniste->connexion($telephone,$code);
+    }
 
 }
