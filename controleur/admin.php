@@ -1,11 +1,14 @@
 <?php
     session_start();
     require '../modele/Admin.php';
+    require '../modele/Consultation.php';
+    require_once 'twilio.config.php';
     if($_SESSION['admin'] == null){
         header('Location:connexion.controleur.php');
     }
     $cpt = 1;
     $admin = new Admin($_SESSION['admin'], "");
+    $tel = "+243";
 
     if(isset($_GET['detail'])){
         switch($_GET['detail']){
@@ -13,6 +16,12 @@
                 $detailMedecin = true;break;
             case "receptionniste":
                 $rec = true;break;
+            case "consultation":
+                $detailConsultation=true;break;
+            case "accouchement":
+                $detailAccouchement = true;break;
+            case "patiente":
+                $detailPatientes = true;break;
         }
         if(isset($_GET['block'])){
             $id = (int) $_GET['block'];
@@ -49,9 +58,21 @@
         }
         if(isset($_POST['enregistrer'])){
             extract($_POST);
+            if( str_starts_with($telephone, "0")){
+                $telephone = substr($telephone, 1);
+            }
+            $tel .= $telephone;
             $code = "RE".strtoupper(substr(uniqid(),9));
-            $insertion = $admin->ajouter_receptionniste($nom,$prenom,$telephone,$code);
-            if($insertion){$satisfait = "Nouveau receptionniste créé avec succès";unset($_POST);}
+            $insertion = $admin->ajouter_receptionniste($nom,$prenom,$tel,$code);
+            if($insertion){
+                try{
+                    $message = "Vous avez été ajouté comme receptionniste de l'hopita. Utilisez votre numéro et ce code : '$code' pour vous connecter \n http://192.168.229.101/hopital/controleur/connexion.controleur.php";
+                    send_sms($tel, $message);
+                }catch(Exception $e){
+                    echo 'Probleme de connexion';
+                }
+                $satisfait = "Nouveau receptionniste créé avec succès";unset($_POST);
+            }
             else $erreurForm = "Echec d'enregistrement";
         }
         if(isset($_POST['modifier'])){
@@ -64,9 +85,13 @@
     $medecins = $admin->recuperer_info('medecins');
     $receptionnistes = $admin->recuperer_info('receptionnistes');
     $certificats = $admin->recuperer_info('certificats');
-    $patientes = $admin->recuperer_info('patientes');
+    $nombrePatientes = $admin->recuperer_info('patientes');
     $accouchements = $admin->recuperer_info('accouchements');
-    $enfants = $admin->recuperer_info('enfants');
+    $nombreEnfants = $admin->recuperer_info('enfants');
+    $consultation = $admin->recuperer_info("consultations");
+    $consultations = $admin->liste_consultations();
+    $enfants = $admin->liste_enfants();
+    $patientes = $admin->get_patientes();
 
     //Partie barre de recherche pour medecins
     if(isset($_POST['recherche_medecin'])){

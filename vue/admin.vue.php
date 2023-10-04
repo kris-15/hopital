@@ -1,36 +1,47 @@
 <?php 
-    $lead = "Admin - ";
-    if(isset($rec))$lead .= "Info Réceptionniste";
+    
+    $lead = "Admininistration ";
+    if(isset($rec))$lead = "Info Réceptionniste";
     if(isset($ajouter))$lead = " Admin -Ajouter Réceptionniste";
-    $titre = "Admin - Dashboard";
+    if(isset($detailConsultation))$lead = "Rapport des consultations";
+    if(isset($detailAccouchement))$lead = "Rapport des enfants enregistrés";
+    if(isset($detailMedecin))$lead = "Comptes des médecins";
+    if(isset($detailPatientes))$lead = "Liste des patientes";
+    $titre = "Administrateur";
     ob_start();
 ?>
 
 <div class="container">
+    <div class="d-flex justify-content-end">
+        <a href="" class="btn btn-sm btn-primary" onclick="window.print()">Imprimer</a>
+    </div>
     <?php 
         if(isset($detailMedecin)){
             require_once 'admin_liste_medecin.php';
         }elseif(isset($rec)){
-            require_once 'admin_ajoute_rec.vue.php';
+            require_once 'admin_ajoute_rec.vue.php'; 
+        }elseif(isset($detailConsultation)){
+            require_once 'admin_consultation.vue.php';
+        }elseif(isset($detailAccouchement)){
+            require_once 'admin_accouchement.vue.php';
+        }elseif(isset($detailPatientes)){
+            require_once 'admin_liste_patiente.vue.php';
         }else{ 
     ?>
-    <div class="d-flex justify-content-end">
-        <a href="" class="btn btn-sm btn-primary">Imprimer les détails</a>
-    </div>
     <div class="row align-items-md-stretch">
         <div class="col-md-6 mt-2">
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
             <h2 class="fs-4">Médecins (<?= count($medecins) ?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="?detail=medecin" class="btn btn-sm btn-primary" title="button">Détails</a>
+                <a href="?detail=medecin" class="btn btn-sm btn-primary" title="detail">Voir les comptes</a>
             </div>
             </div>
         </div>
         <div class="col-md-6 mt-2">
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
-            <h2 class="fs-4">Certificats (<?= count($receptionnistes) ?>)</h2>
+            <h2 class="fs-4">Certificats (<?= count($nombreEnfants) ?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="" class="btn btn-sm btn-primary" title="button">Détails</a>
+                <a href="?detail=accouchement" class="btn btn-sm btn-primary" title="detail">Voir plus</a>
             </div>
             
             </div>
@@ -48,24 +59,24 @@
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
             <h2 class="fs-4">Patientes (<?= count($patientes) ?>) </h2>
             <div class="d-flex justify-content-end">
-                <a href="" class="btn btn-sm btn-primary" title="button">Détails</a>
+                <a href="?detail=patiente" class="btn btn-sm btn-primary" title="button">Liste</a>
             </div>
             
             </div>
         </div>
         <div class="col-md-6 mt-2">
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
-            <h2 class="fs-4">Accouchement (<?= count($accouchements) ?>)</h2>
+            <h2 class="fs-4">Accouchement (<?= count($nombreEnfants) ?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-sm btn-primary" type="button">Détails</a>
+                <a href="?detail=accouchement" class="btn btn-sm btn-primary" title="Voir +">Détails</a>
             </div>
             </div>
         </div>
         <div class="col-md-6 mt-2">
             <div class="h-100 p-3 bg-body-tertiary border rounded-3">
-            <h2 class="fs-4">Nouveau-né (<?=count($enfants)?>)</h2>
+            <h2 class="fs-4">Consultation (<?=count($consultation)?>)</h2>
             <div class="d-flex justify-content-end">
-                <a href="" class ="btn btn-sm btn-primary"  title="button">Détails</a>
+                <a href="?detail=consultation" class ="btn btn-sm btn-primary"  title="Voir +">Afficher</a>
             </div>
             
             </div>
