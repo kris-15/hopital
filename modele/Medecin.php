@@ -127,5 +127,20 @@ class Medecin extends Model{
             [$idPatiente], fetch:true, fetchMode:PDO::FETCH_OBJ
         );
     }
+    public function consultations(){
+        $consultation = new Consultation();
+        return $consultation->get_consultations();
+    }
+    public function liste_enfants(){
+        return $this->prepare_sql(
+            "SELECT *, enfants.id as id_enfant, enfants.nom as nom_enfant,medecins.id as id_medecin,
+            medecins.nom as nom_medecin, date_format(enfants.date_naissance, '%d/%m/%Y') as date_formatee, 
+            patientes.nom as nom_mamam, patientes.prenom as prenom_maman, patientes.epoux as papa FROM enfants 
+            INNER JOIN medecins ON medecins.id = enfants.medecin_id
+            INNER JOIN patientes ON patientes.id = enfants.parent_id
+             ORDER BY enfants.id DESC", 
+            [], fetch:true, fetchMode:PDO::FETCH_OBJ
+        );
+    }
 
 }

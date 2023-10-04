@@ -1,5 +1,6 @@
 <?php
     require '../controleur/medecin.requirement.php';
+    require '../modele/Consultation.php';
 
     //Partie enregistrement de la patiente
     if(isset($_POST['enregistrer'])){
@@ -19,11 +20,18 @@
         }
     }
     $patientes = $medecin->get_patientes();
-
+    if(isset($_GET['detail']) AND $_GET['detail'] == "consultation"){
+        $voirConsultation = true;
+    }
+    if(isset($_GET['detail']) AND $_GET['detail'] == "enfants"){
+        $voirEnfants = true;
+    }
     //Partie recherche
     if(isset($_POST['recherche'])){
         extract($_POST);
         $patientes = $medecin->get_patientes_by_nom($nom);
     }
+    $consultations = $medecin->consultations();
+    $enfants = $medecin->liste_enfants();
     require_once '../vue/index.admin.vue.php';
 ?>

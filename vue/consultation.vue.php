@@ -41,7 +41,7 @@
                     <td><?= $consultation->observation ?> </td>
                 </tr>
                 <tr>
-                    <th>observation : </th>
+                    <th>Consultée par : </th>
                     <td>Dr <?= $consultation->nom_medecin ?> </td>
                 </tr>
                     </tbody>
