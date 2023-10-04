@@ -1,5 +1,4 @@
 <?php
-require '../modele/Modele.php';
 class Receptionniste extends Model{
     public $id;
     public $login;
@@ -86,6 +85,9 @@ class Receptionniste extends Model{
      */
     public function adresse_patiente($id){
         return $this->prepare_sql("SELECT * FROM adresses WHERE patient_id = ?", [$id], fetchOne:true, fetchMode:PDO::FETCH_OBJ);
+    }
+    public function connexion($telephone, $code){
+        return $this->prepare_sql("SELECT * FROM receptionnistes WHERE telephone=? AND code=?",[$telephone, $code], fetchOne:true, fetchMode:PDO::FETCH_OBJ);
     }
     
 

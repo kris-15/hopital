@@ -1,12 +1,14 @@
 <?php
-
+    session_start();
+    if(isset($_SESSION['receptionniste'])){
+        $salutation = $_SESSION['receptionniste'];
+    }else{
+        header('Location: connexion.controleur.php');
+    }
+    require_once '../modele/Modele.php';
     require_once '../modele/Receptionniste.php';
     $titre = "Receptionniste";
-    // if(isset($_SESSION['admin'])){
-    //     $salutation = $_SESSION['admin'];
-    // }else{
-    //     header('Location: connexion.controleur.php');
-    // }
+    
     $receptionniste = new Receptionniste();
     
     //Pour récupérer les informations de la patiente à modifier
